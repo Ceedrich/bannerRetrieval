@@ -31,12 +31,14 @@ public interface CauldronBehaviorExtended {
         String bannerColor = COLOR_MAP.get(shieldBannerNbt.getInt("Base"));
         shieldBannerNbt.remove("Base");
 
-        NbtCompound bannerNBT = new NbtCompound();
+        NbtCompound bannerNBT = nbtData.contains("DecorationTag") ? nbtData.getCompound("DecorationTag").copy() : new NbtCompound();
 
-        bannerNBT.putString("id", "minecraft:" + bannerColor + "_banner");
-        bannerNBT.putInt("Count", 1);
+        NbtCompound bannerItemNbt = new NbtCompound();
+        bannerItemNbt.putString("id", "minecraft:" + bannerColor + "_banner");
+        bannerItemNbt.putInt("Count", 1);
+        bannerItemNbt.put("tag", bannerNBT);
 
-        ItemStack banner = ItemStack.fromNbt(bannerNBT);
+        ItemStack banner = ItemStack.fromNbt(bannerItemNbt);
         BlockItem.setBlockEntityNbt(banner, BlockEntityType.BANNER, shieldBannerNbt);
 
         world.spawnEntity(new ItemEntity(world, pos.getX() + 0.5, pos.getY() + Y_OFFSET, pos.getZ() + 0.5, banner, 0, Y_VELOCITY, 0));
