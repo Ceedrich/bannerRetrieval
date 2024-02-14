@@ -1,5 +1,8 @@
 package net.bannerretrieval;
 
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NbtCompound;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +26,8 @@ public class Utils {
         COLOR_MAP.put(14, "red");
         COLOR_MAP.put(15, "black");
     }
+
+    public static final String DECORATION_TAG_KEY = "DecorationTag";
 
     public static final double Y_OFFSET = 0.8;
     public static final double Y_VELOCITY = 0.2;

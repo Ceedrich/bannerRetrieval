@@ -31,7 +31,7 @@ public interface CauldronBehaviorExtended {
         String bannerColor = COLOR_MAP.get(shieldBannerNbt.getInt("Base"));
         shieldBannerNbt.remove("Base");
 
-        NbtCompound bannerNBT = nbtData.contains("DecorationTag") ? nbtData.getCompound("DecorationTag").copy() : new NbtCompound();
+        NbtCompound bannerNBT = nbtData.contains(DECORATION_TAG_KEY) ? nbtData.getCompound(DECORATION_TAG_KEY).copy() : new NbtCompound();
 
         NbtCompound bannerItemNbt = new NbtCompound();
         bannerItemNbt.putString("id", "minecraft:" + bannerColor + "_banner");
