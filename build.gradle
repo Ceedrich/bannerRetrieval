@@ -16,7 +16,6 @@ modrinth {
 	loaders = ["fabric"]
 	dependencies {
 		required.project "fabric-api"
-		optional.version "sodium", "mc1.19.3-0.4.8"
 	}
 }
 
