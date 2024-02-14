@@ -1,8 +1,5 @@
 package net.bannerretrieval.mixin;
 
-import net.fabricmc.loader.impl.util.log.Log;
-import net.fabricmc.loader.impl.util.log.LogCategory;
-import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.RecipeInputInventory;
 import net.minecraft.item.BannerItem;
 import net.minecraft.item.BlockItem;
@@ -39,19 +36,25 @@ public class ShieldDecorationRecipeMixin {
         if (itemStack2.isEmpty()) {
             return itemStack2;
         }
-        NbtCompound blockEntityNbt = BlockItem.getBlockEntityNbt(itemStack) == null ? new NbtCompound() :BlockItem.getBlockEntityNbt(itemStack);
-        NbtCompound otherBannerNbt = itemStack.getNbt() == null ? new NbtCompound() : itemStack.getNbt().copy();
-        otherBannerNbt.remove(BLOCK_ENTITY_TAG_KEY);
 
-        NbtCompound resultNbt = itemStack2.getNbt() == null ? new NbtCompound() : itemStack2.getNbt().copy();
-        resultNbt.put(DECORATION_TAG_KEY, otherBannerNbt);
-        resultNbt.put(BLOCK_ENTITY_TAG_KEY, blockEntityNbt);
+        // itemStack2 : shield
+        // itemStack  : banner
 
-        Log.info(LogCategory.GENERAL, resultNbt.toString());
-        Log.info(LogCategory.GENERAL, itemStack.getNbt() == null ? "{}" : itemStack.getNbt().toString());
+        NbtCompound bannerBlockEntityNbt = BlockItem.getBlockEntityNbt(itemStack);
+        NbtCompound bannerNbt = itemStack.getNbt();
+        NbtCompound shieldNbt = itemStack2.getNbt();
+        if (shieldNbt == null) shieldNbt = new NbtCompound();
 
-        resultNbt.putInt("Base", ((BannerItem)itemStack.getItem()).getColor().getId());
-        itemStack2.setNbt(resultNbt);
+        NbtCompound shieldBlockEntityNbt = bannerBlockEntityNbt == null ? new NbtCompound() : bannerBlockEntityNbt.copy();
+        NbtCompound shieldDecorationNbt = bannerNbt == null ? new NbtCompound() : bannerNbt.copy();
+        shieldDecorationNbt.remove(BLOCK_ENTITY_TAG_KEY); // remove BLOCK_ENTITY_TAG already covered
+
+        shieldBlockEntityNbt.putInt("Base", ((BannerItem)itemStack.getItem()).getColor().getId());
+
+        shieldNbt.put(DECORATION_TAG_KEY, shieldDecorationNbt);
+        shieldNbt.put(BLOCK_ENTITY_TAG_KEY, shieldBlockEntityNbt);
+
+        itemStack2.setNbt(shieldNbt);
         return itemStack2;
     }
 }

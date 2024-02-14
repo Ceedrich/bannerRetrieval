@@ -31,4 +31,8 @@ public class Utils {
 
     public static final double Y_OFFSET = 0.8;
     public static final double Y_VELOCITY = 0.2;
+
+    public static NbtCompound getDecorationNbt(ItemStack stack) {
+        return stack.getSubNbt(DECORATION_TAG_KEY);
+    }
 }
