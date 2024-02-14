@@ -3,7 +3,8 @@
 	"package": "net.bannerretrieval.mixin",
 	"compatibilityLevel": "JAVA_17",
 	"mixins": [
-		"CauldronBehaviorMixin"
+		"CauldronBehaviorMixin",
+		"ShieldDecorationRecipeMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
