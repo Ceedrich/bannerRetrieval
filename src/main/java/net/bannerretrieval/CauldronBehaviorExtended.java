@@ -14,6 +14,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 
 import static net.bannerretrieval.Utils.*;
+import static net.minecraft.item.BlockItem.BLOCK_ENTITY_TAG_KEY;
 
 public interface CauldronBehaviorExtended {
     CauldronBehavior WASH_SHIELD = (state, world, pos, player, hand, stack) -> {
@@ -22,11 +23,11 @@ public interface CauldronBehaviorExtended {
         if (
                 nbtData == null ||
                 nbtData.isEmpty() ||
-                !nbtData.contains("BlockEntityTag")
+                !nbtData.contains(BLOCK_ENTITY_TAG_KEY)
         ) return ActionResult.PASS;
 
-        NbtCompound shieldBannerNbt = nbtData.getCompound("BlockEntityTag").copy();
-        stack.removeSubNbt("BlockEntityTag");
+        NbtCompound shieldBannerNbt = nbtData.getCompound(BLOCK_ENTITY_TAG_KEY).copy();
+        stack.removeSubNbt(BLOCK_ENTITY_TAG_KEY);
 
         String bannerColor = COLOR_MAP.get(shieldBannerNbt.getInt("Base"));
         shieldBannerNbt.remove("Base");

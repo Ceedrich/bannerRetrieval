@@ -14,6 +14,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 import static net.bannerretrieval.Utils.DECORATION_TAG_KEY;
+import static net.minecraft.item.BlockItem.BLOCK_ENTITY_TAG_KEY;
 
 @Mixin(net.minecraft.recipe.ShieldDecorationRecipe.class)
 public class ShieldDecorationRecipeMixin {
@@ -40,11 +41,11 @@ public class ShieldDecorationRecipeMixin {
         }
         NbtCompound blockEntityNbt = BlockItem.getBlockEntityNbt(itemStack) == null ? new NbtCompound() :BlockItem.getBlockEntityNbt(itemStack);
         NbtCompound otherBannerNbt = itemStack.getNbt() == null ? new NbtCompound() : itemStack.getNbt().copy();
-        otherBannerNbt.remove("BlockEntityTag");
+        otherBannerNbt.remove(BLOCK_ENTITY_TAG_KEY);
 
         NbtCompound resultNbt = itemStack2.getNbt() == null ? new NbtCompound() : itemStack2.getNbt().copy();
         resultNbt.put(DECORATION_TAG_KEY, otherBannerNbt);
-        resultNbt.put("BlockEntityTag", blockEntityNbt);
+        resultNbt.put(BLOCK_ENTITY_TAG_KEY, blockEntityNbt);
 
         Log.info(LogCategory.GENERAL, resultNbt.toString());
         Log.info(LogCategory.GENERAL, itemStack.getNbt() == null ? "{}" : itemStack.getNbt().toString());
