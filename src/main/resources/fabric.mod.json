@@ -13,7 +13,7 @@
 	},
 	"license": "Apache-2.0",
 	"icon": "assets/bannerretrieval/icon.png",
-	"environment": "server",
+	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"net.bannerretrieval.Bannerretrieval"
