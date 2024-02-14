@@ -36,17 +36,19 @@ public class ShieldDecorationRecipeMixin {
         if (itemStack2.isEmpty()) {
             return itemStack2;
         }
-        NbtCompound blockEntityNbt = BlockItem.getBlockEntityNbt(itemStack);
+        NbtCompound blockEntityNbt = BlockItem.getBlockEntityNbt(itemStack) == null ? new NbtCompound() :BlockItem.getBlockEntityNbt(itemStack);
         NbtCompound otherBannerNbt = itemStack.getNbt() == null ? new NbtCompound() : itemStack.getNbt().copy();
         otherBannerNbt.remove("BlockEntityTag");
-        NbtCompound resultNbt = blockEntityNbt == null ? new NbtCompound() : blockEntityNbt.copy();
+
+        NbtCompound resultNbt = itemStack2.getNbt() == null ? new NbtCompound() : itemStack2.getNbt().copy();
         resultNbt.put("DecorationTag", otherBannerNbt);
+        resultNbt.put("BlockEntityTag", blockEntityNbt);
 
         Log.info(LogCategory.GENERAL, resultNbt.toString());
         Log.info(LogCategory.GENERAL, itemStack.getNbt() == null ? "{}" : itemStack.getNbt().toString());
 
         resultNbt.putInt("Base", ((BannerItem)itemStack.getItem()).getColor().getId());
-        BlockItem.setBlockEntityNbt(itemStack2, BlockEntityType.BANNER, resultNbt);
+        itemStack2.setNbt(resultNbt);
         return itemStack2;
     }
 }
