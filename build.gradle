@@ -17,6 +17,8 @@ modrinth {
 	dependencies {
 		required.project "fabric-api"
 	}
+
+	syncBodyFrom = rootProject.file("README.md").text
 }
 
 base {
