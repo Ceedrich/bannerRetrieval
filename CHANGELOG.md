@@ -1,0 +1,1 @@
+Added mod icon to the `.jar` file

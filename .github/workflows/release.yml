@@ -1,0 +1,24 @@
+name: Release on Github and Modrinth
+
+env:
+  MODRINTH_ID: IWl6SPCs
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: Kir-Antipov/mc-publish@v3.2
+        with:
+          modrinth-id : ${{ env.MODRINTH_ID }}
+          modrinth-token: ${{ secret.MODRINTH_TOKEN }}
+
+          github-token: ${{ secrets.GITHUB_TOKEN }}
