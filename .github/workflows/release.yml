@@ -16,7 +16,26 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: Kir-Antipov/mc-publish@v3.2
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Make Gradle wrapper executable
+        if: ${{ runner.os != 'Windows' }}
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew clean build
+
+      - name: Publish
+        uses: Kir-Antipov/mc-publish@v3.2
         with:
           modrinth-id : ${{ env.MODRINTH_ID }}
           modrinth-token: ${{ secret.MODRINTH_TOKEN }}
