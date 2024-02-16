@@ -2,10 +2,10 @@
 	"schemaVersion": 1,
 	"id": "bannerretrieval",
 	"version": "${version}",
-	"name": "bannerretrieval",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Banner Retrieval",
+	"description": "Lets you remove the banner from your shield using a cauldron",
 	"authors": [
-		"Me!"
+		"Ceedrich"
 	],
 	"contact": {
 		"homepage": "https://ceedri.ch",
@@ -27,8 +27,5 @@
 		"minecraft": "~1.20.4",
 		"java": ">=17",
 		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
 	}
 }
