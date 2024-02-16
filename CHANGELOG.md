@@ -1,1 +1,1 @@
-Added mod icon to the `.jar` file
+Changed the mod metadata
