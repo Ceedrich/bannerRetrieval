@@ -35,9 +35,9 @@ jobs:
         run: ./gradlew clean build
 
       - name: Publish
-        uses: Kir-Antipov/mc-publish@v3.2
+        uses: Kir-Antipov/mc-publish@v3.3.0
         with:
           modrinth-id : ${{ env.MODRINTH_ID }}
-          modrinth-token: ${{ secret.MODRINTH_TOKEN }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
