@@ -41,3 +41,6 @@ jobs:
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
+
+          files: build/libs/!(*-@(dev|sources|javadoc)).jar
+          changelog-file: CHANGELOG.md
