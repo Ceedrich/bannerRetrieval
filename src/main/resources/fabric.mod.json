@@ -1,31 +1,26 @@
 {
-	"schemaVersion": 1,
-	"id": "bannerretrieval",
-	"version": "${version}",
-	"name": "Banner Retrieval",
-	"description": "Lets you remove the banner from your shield using a cauldron",
-	"authors": [
-		"Ceedrich"
-	],
-	"contact": {
-		"homepage": "https://ceedri.ch",
-		"sources": "https://github.com/Ceedrich/bannerRetrieval"
-	},
-	"license": "Apache-2.0",
-	"icon": "assets/bannerretrieval/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"net.bannerretrieval.Bannerretrieval"
-		]
-	},
-	"mixins": [
-		"bannerretrieval.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.15.6",
-		"minecraft": "~1.20.4",
-		"java": ">=17",
-		"fabric-api": "*"
-	}
+  "schemaVersion": 1,
+  "id": "bannerretrieval",
+  "version": "${version}",
+  "name": "Banner Retrieval",
+  "description": "Lets you remove the banner from your shield using a cauldron",
+  "authors": ["Ceedrich"],
+  "contact": {
+    "homepage": "https://ceedri.ch",
+    "sources": "https://github.com/Ceedrich/bannerRetrieval"
+  },
+  "license": "Apache-2.0",
+  "icon": "assets/bannerretrieval/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["net.bannerretrieval.Bannerretrieval"]
+  },
+  "mixins": ["bannerretrieval.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.15.6",
+    "minecraft": "~1.20.5",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
 }
+
