@@ -12,6 +12,8 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.ItemActionResult;
 
+import javax.xml.crypto.Data;
+
 public interface CauldronBehaviorExtended {
     CauldronBehavior WASH_SHIELD = (state, world, pos, player, hand, stack) -> {
         BannerPatternsComponent bannerPatternsComponent = stack.getOrDefault(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT);
@@ -19,7 +21,7 @@ public interface CauldronBehaviorExtended {
         DyeColor bannerColor = stack.get(DataComponentTypes.BASE_COLOR);
         assert bannerColor != null;
 
-        if (bannerPatternsComponent.layers().isEmpty() || bannerComponents.isEmpty()) {
+        if (bannerPatternsComponent.layers().isEmpty()) {
             return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
         }
         if (world.isClient) return ItemActionResult.success(true);
@@ -28,15 +30,15 @@ public interface CauldronBehaviorExtended {
 
         shieldItemStack.remove(BannerRetrievalComponents.BANNER_COMPONENTS);
         shieldItemStack.remove(DataComponentTypes.BASE_COLOR);
-        //shieldItemStack.remove(DataComponentTypes.BANNER_PATTERNS);
         shieldItemStack.set(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT);
 
         ItemStack bannerItemStack = new ItemStack(bannerItemFromColor(bannerColor));
 
+        bannerItemStack.set(DataComponentTypes.BANNER_PATTERNS, bannerPatternsComponent);
         bannerItemStack.applyComponentsFrom(bannerComponents);
 
         stack.decrementUnlessCreative(1, player);
-        if (shieldItemStack.isEmpty()) {
+        if (stack.isEmpty()) {
             player.setStackInHand(hand, shieldItemStack);
         } else if (player.getInventory().insertStack(shieldItemStack)) {
             player.playerScreenHandler.syncState();
