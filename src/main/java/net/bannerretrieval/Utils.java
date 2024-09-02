@@ -1,38 +1,41 @@
 package net.bannerretrieval;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-
-import java.util.HashMap;
-import java.util.Map;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.util.DyeColor;
 
 public class Utils {
-    public static final Map<Integer, String> COLOR_MAP = new HashMap<>();
-    static {
-        COLOR_MAP.put(0, "white");
-        COLOR_MAP.put(1, "orange");
-        COLOR_MAP.put(2, "magenta");
-        COLOR_MAP.put(3, "light_blue");
-        COLOR_MAP.put(4, "yellow");
-        COLOR_MAP.put(5, "lime");
-        COLOR_MAP.put(6, "pink");
-        COLOR_MAP.put(7, "gray");
-        COLOR_MAP.put(8, "light_gray");
-        COLOR_MAP.put(9, "cyan");
-        COLOR_MAP.put(10, "purple");
-        COLOR_MAP.put(11, "blue");
-        COLOR_MAP.put(12, "brown");
-        COLOR_MAP.put(13, "green");
-        COLOR_MAP.put(14, "red");
-        COLOR_MAP.put(15, "black");
-    }
 
     public static final String DECORATION_TAG_KEY = "DecorationTag";
 
     public static final double Y_OFFSET = 0.8;
     public static final double Y_VELOCITY = 0.2;
 
+    public static Item getBannerItem(DyeColor color) {
+        if (color.equals(DyeColor.WHITE)) return Items.WHITE_BANNER;
+        if (color.equals(DyeColor.LIGHT_GRAY)) return Items.LIGHT_GRAY_BANNER;
+        if (color.equals(DyeColor.GRAY)) return Items.GRAY_BANNER;
+        if (color.equals(DyeColor.BLACK)) return Items.BLACK_BANNER;
+        if (color.equals(DyeColor.BROWN)) return Items.BROWN_BANNER;
+        if (color.equals(DyeColor.RED)) return Items.RED_BANNER;
+        if (color.equals(DyeColor.ORANGE)) return Items.ORANGE_BANNER;
+        if (color.equals(DyeColor.YELLOW)) return Items.YELLOW_BANNER;
+        if (color.equals(DyeColor.LIME)) return Items.LIME_BANNER;
+        if (color.equals(DyeColor.GREEN)) return Items.GREEN_BANNER;
+        if (color.equals(DyeColor.CYAN)) return Items.CYAN_BANNER;
+        if (color.equals(DyeColor.LIGHT_BLUE)) return Items.LIGHT_BLUE_BANNER;
+        if (color.equals(DyeColor.BLUE)) return Items.BLUE_BANNER;
+        if (color.equals(DyeColor.PURPLE)) return Items.PURPLE_BANNER;
+        if (color.equals(DyeColor.MAGENTA)) return Items.MAGENTA_BANNER;
+        if (color.equals(DyeColor.PINK)) return Items.PINK_BANNER;
+
+        throw new IllegalStateException("Unexpected value: " + color);
+    }
+
+    /*
     public static NbtCompound getDecorationNbt(ItemStack stack) {
         return stack.getSubNbt(DECORATION_TAG_KEY);
     }
+
+     */
 }
