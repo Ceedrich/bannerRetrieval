@@ -38,7 +38,7 @@ public interface CauldronBehaviorExtended {
         bannerItemStack.applyComponentsFrom(bannerComponents);
 
         stack.decrementUnlessCreative(1, player);
-        if (shieldItemStack.isEmpty()) {
+        if (stack.isEmpty()) {
             player.setStackInHand(hand, shieldItemStack);
         } else if (player.getInventory().insertStack(shieldItemStack)) {
             player.playerScreenHandler.syncState();
