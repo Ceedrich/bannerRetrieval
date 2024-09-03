@@ -4,8 +4,6 @@ env:
   MODRINTH_ID: IWl6SPCs
 
 on:
-  push:
-    branches: [ main ]
   workflow_dispatch:
 
 jobs:
