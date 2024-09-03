@@ -12,12 +12,9 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.DyeColor;
 import net.minecraft.util.ItemActionResult;
 
-import javax.xml.crypto.Data;
-
 public interface CauldronBehaviorExtended {
     CauldronBehavior WASH_SHIELD = (state, world, pos, player, hand, stack) -> {
         BannerPatternsComponent bannerPatternsComponent = stack.getOrDefault(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT);
-        ComponentMap bannerComponents = stack.getOrDefault(BannerRetrievalComponents.BANNER_COMPONENTS, ComponentMap.EMPTY);
         DyeColor bannerColor = stack.get(DataComponentTypes.BASE_COLOR);
         assert bannerColor != null;
 
@@ -28,14 +25,12 @@ public interface CauldronBehaviorExtended {
 
         ItemStack shieldItemStack = stack.copy();
 
-        shieldItemStack.remove(BannerRetrievalComponents.BANNER_COMPONENTS);
         shieldItemStack.remove(DataComponentTypes.BASE_COLOR);
         shieldItemStack.set(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT);
 
         ItemStack bannerItemStack = new ItemStack(bannerItemFromColor(bannerColor));
 
         bannerItemStack.set(DataComponentTypes.BANNER_PATTERNS, bannerPatternsComponent);
-        bannerItemStack.applyComponentsFrom(bannerComponents);
 
         stack.decrementUnlessCreative(1, player);
         if (stack.isEmpty()) {

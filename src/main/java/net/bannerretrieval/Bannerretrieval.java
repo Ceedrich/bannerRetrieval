@@ -18,6 +18,5 @@ public class Bannerretrieval implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Initializing...");
-		BannerRetrievalComponents.initialize();
 	}
 }
