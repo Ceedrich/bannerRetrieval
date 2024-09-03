@@ -7,4 +7,4 @@ This is a simple server side mod that allows players to remove banner patterns f
 ## Features
 
 - Adds the ability to remove banners from shields
-- (Modifies the way banners and shields are combined in order to allow for the banner to keep its original form when retrieved)
+- **WARNING**: After removing the banner from the shield, the banner will only have its original pattern and color. All other components like a custom name (in the case of the ominous banner its color) are lost!
