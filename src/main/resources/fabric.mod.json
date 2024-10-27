@@ -18,7 +18,7 @@
   "mixins": ["bannerretrieval.mixins.json"],
   "depends": {
     "fabricloader": ">=0.15.6",
-    "minecraft": "~1.21",
+    "minecraft": ">=1.21.2 <1.22.0",
     "java": ">=21",
     "fabric-api": "*"
   }
