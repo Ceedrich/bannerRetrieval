@@ -2,7 +2,6 @@ package net.bannerretrieval;
 
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.component.ComponentMap;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.BannerPatternsComponent;
 import net.minecraft.item.Item;
@@ -10,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.DyeColor;
-import net.minecraft.util.ItemActionResult;
+import net.minecraft.util.ActionResult;
 
 public interface CauldronBehaviorExtended {
     CauldronBehavior WASH_SHIELD = (state, world, pos, player, hand, stack) -> {
@@ -19,9 +18,9 @@ public interface CauldronBehaviorExtended {
         assert bannerColor != null;
 
         if (bannerPatternsComponent.layers().isEmpty()) {
-            return ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
         }
-        if (world.isClient) return ItemActionResult.success(true);
+        if (world.isClient) return ActionResult.SUCCESS;
 
         ItemStack shieldItemStack = stack.copy();
 
@@ -48,7 +47,7 @@ public interface CauldronBehaviorExtended {
 
         player.incrementStat(Stats.USE_CAULDRON);
         LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
-        return ItemActionResult.success(false);
+        return ActionResult.SUCCESS;
     };
 
     private static Item bannerItemFromColor(DyeColor color) {
