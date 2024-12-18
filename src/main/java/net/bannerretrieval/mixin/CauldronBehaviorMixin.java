@@ -33,6 +33,7 @@ public interface CauldronBehaviorMixin {
             Field MANGROVE_SHIELD = MoreShieldVariantItems.getField("MANGROVE_SHIELD");
             Field OAK_SHIELD = MoreShieldVariantItems.getField("OAK_SHIELD");
             Field WARPED_SHIELD = MoreShieldVariantItems.getField("WARPED_SHIELD");
+            Field PALE_OAK_SHIELD = MoreShieldVariantItems.getField("PALE_OAK_SHIELD");
 
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put((Item) ACACIA_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put((Item) BAMBOO_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
@@ -44,6 +45,8 @@ public interface CauldronBehaviorMixin {
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put((Item) MANGROVE_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put((Item) OAK_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
             CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put((Item) WARPED_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            CauldronBehavior.WATER_CAULDRON_BEHAVIOR.map().put((Item) PALE_OAK_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+
         } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
             Bannerretrieval.LOGGER.error("Failed to access third-party mod class or method: {}", e.getMessage());
         }

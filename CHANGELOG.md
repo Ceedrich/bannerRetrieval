@@ -1,2 +1,1 @@
-Add Compatibility with
-[More Shield Variants](https://modrinth.com/mod/more-shield-variants)
+Update to work with 1.21.4
