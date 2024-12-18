@@ -16,10 +16,13 @@ modrinth {
 	loaders = ["fabric"]
 	dependencies {
 		required.project "fabric-api"
+		optional.project "more-shield-variants"
 	}
 
 	syncBodyFrom = rootProject.file("README.md").text
 }
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 
 base {
 	archivesName = project.archives_base_name
