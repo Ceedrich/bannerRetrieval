@@ -12,14 +12,17 @@ modrinth {
 	projectId = "IWl6SPCs" // This can be the project ID or the slug. Either will work!
 	versionType = "release"
 	uploadFile = remapJar
-	gameVersions = ["1.21.2", "1.21.3"]
+	gameVersions = ["1.21.2", "1.21.3", "1.21.4"]
 	loaders = ["fabric"]
 	dependencies {
 		required.project "fabric-api"
+		optional.project "more-shield-variants"
 	}
 
 	syncBodyFrom = rootProject.file("README.md").text
 }
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
 
 base {
 	archivesName = project.archives_base_name
