@@ -3,9 +3,12 @@ package net.bannerretrieval.mixin;
 import net.bannerretrieval.Bannerretrieval;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.cauldron.CauldronInteractions;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -14,11 +17,12 @@ import net.bannerretrieval.CauldronBehaviorExtended;
 
 import java.lang.reflect.Field;
 
-@Mixin(CauldronInteraction.class)
-public interface CauldronBehaviorMixin {
+@Mixin(CauldronInteractions.class)
+public class CauldronBehaviorMixin {
     @Inject(method = "bootStrap", at=@At("TAIL"))
     private static void bannerretrieval$injectRegisterBehavior(CallbackInfo ci) {
-        CauldronInteraction.WATER.map().put(Items.SHIELD, CauldronBehaviorExtended.WASH_SHIELD);
+        var water = (CauldronInteractionDispatcherMixin) CauldronInteractions.WATER;
+        water.bannerretrieval$put(Items.SHIELD, CauldronBehaviorExtended.WASH_SHIELD);
 
         if (!FabricLoader.getInstance().isModLoaded("lolmsv")) { return; }
         try {
@@ -35,17 +39,17 @@ public interface CauldronBehaviorMixin {
             Field WARPED_SHIELD = MoreShieldVariantItems.getField("WARPED_SHIELD");
             Field PALE_OAK_SHIELD = MoreShieldVariantItems.getField("PALE_OAK_SHIELD");
 
-            CauldronInteraction.WATER.map().put((Item) ACACIA_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
-            CauldronInteraction.WATER.map().put((Item) BAMBOO_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
-            CauldronInteraction.WATER.map().put((Item) BIRCH_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
-            CauldronInteraction.WATER.map().put((Item) CHERRY_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
-            CauldronInteraction.WATER.map().put((Item) CRIMSON_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
-            CauldronInteraction.WATER.map().put((Item) DARK_OAK_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
-            CauldronInteraction.WATER.map().put((Item) JUNGLE_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
-            CauldronInteraction.WATER.map().put((Item) MANGROVE_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
-            CauldronInteraction.WATER.map().put((Item) OAK_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
-            CauldronInteraction.WATER.map().put((Item) WARPED_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
-            CauldronInteraction.WATER.map().put((Item) PALE_OAK_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) ACACIA_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) BAMBOO_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) BIRCH_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) CHERRY_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) CRIMSON_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) DARK_OAK_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) JUNGLE_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) MANGROVE_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) OAK_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) WARPED_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
+            water.bannerretrieval$put((Item) PALE_OAK_SHIELD.get(null), CauldronBehaviorExtended.WASH_SHIELD);
 
         } catch (ClassNotFoundException | NoSuchFieldException | IllegalAccessException e) {
             Bannerretrieval.LOGGER.error("Failed to access third-party mod class or method: {}", e.getMessage());
