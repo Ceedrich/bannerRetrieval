@@ -1,53 +1,53 @@
 package net.bannerretrieval;
 
-import net.minecraft.block.LeveledCauldronBlock;
-import net.minecraft.block.cauldron.CauldronBehavior;
-import net.minecraft.component.DataComponentTypes;
-import net.minecraft.component.type.BannerPatternsComponent;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.stat.Stats;
-import net.minecraft.util.DyeColor;
-import net.minecraft.util.ActionResult;
+import net.minecraft.core.cauldron.CauldronInteraction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.LayeredCauldronBlock;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 public interface CauldronBehaviorExtended {
-    CauldronBehavior WASH_SHIELD = (state, world, pos, player, hand, stack) -> {
-        BannerPatternsComponent bannerPatternsComponent = stack.getOrDefault(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT);
-        DyeColor bannerColor = stack.get(DataComponentTypes.BASE_COLOR);
+    CauldronInteraction WASH_SHIELD = (state, world, pos, player, hand, stack) -> {
+        BannerPatternLayers bannerPatternsComponent = stack.getOrDefault(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY);
+        DyeColor bannerColor = stack.get(DataComponents.BASE_COLOR);
         assert bannerColor != null;
 
         if (bannerPatternsComponent.layers().isEmpty()) {
-            return ActionResult.PASS_TO_DEFAULT_BLOCK_ACTION;
+            return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
-        if (world.isClient) return ActionResult.SUCCESS;
+        if (world.isClientSide) return InteractionResult.SUCCESS;
 
         ItemStack shieldItemStack = stack.copy();
 
-        shieldItemStack.remove(DataComponentTypes.BASE_COLOR);
-        shieldItemStack.set(DataComponentTypes.BANNER_PATTERNS, BannerPatternsComponent.DEFAULT);
+        shieldItemStack.remove(DataComponents.BASE_COLOR);
+        shieldItemStack.set(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY);
 
         ItemStack bannerItemStack = new ItemStack(bannerItemFromColor(bannerColor));
 
-        bannerItemStack.set(DataComponentTypes.BANNER_PATTERNS, bannerPatternsComponent);
+        bannerItemStack.set(DataComponents.BANNER_PATTERNS, bannerPatternsComponent);
 
-        stack.decrementUnlessCreative(1, player);
+        stack.consume(1, player);
         if (stack.isEmpty()) {
-            player.setStackInHand(hand, shieldItemStack);
-        } else if (player.getInventory().insertStack(shieldItemStack)) {
-            player.playerScreenHandler.syncState();
+            player.setItemInHand(hand, shieldItemStack);
+        } else if (player.getInventory().add(shieldItemStack)) {
+            player.inventoryMenu.sendAllDataToRemote();
         } else {
-            player.dropItem(shieldItemStack, false);
+            player.drop(shieldItemStack, false);
         }
-        if (player.getInventory().insertStack(bannerItemStack)) {
-            player.playerScreenHandler.syncState();
+        if (player.getInventory().add(bannerItemStack)) {
+            player.inventoryMenu.sendAllDataToRemote();
         } else {
-            player.dropItem(bannerItemStack, false);
+            player.drop(bannerItemStack, false);
         }
 
-        player.incrementStat(Stats.USE_CAULDRON);
-        LeveledCauldronBlock.decrementFluidLevel(state, world, pos);
-        return ActionResult.SUCCESS;
+        player.awardStat(Stats.USE_CAULDRON);
+        LayeredCauldronBlock.lowerFillLevel(state, world, pos);
+        return InteractionResult.SUCCESS;
     };
 
     private static Item bannerItemFromColor(DyeColor color) {
