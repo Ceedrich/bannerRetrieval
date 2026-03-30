@@ -20,7 +20,7 @@ public interface CauldronBehaviorExtended {
         if (bannerPatternsComponent.layers().isEmpty()) {
             return InteractionResult.TRY_WITH_EMPTY_HAND;
         }
-        if (world.isClientSide) return InteractionResult.SUCCESS;
+        if (world.isClientSide()) return InteractionResult.SUCCESS;
 
         ItemStack shieldItemStack = stack.copy();
 
